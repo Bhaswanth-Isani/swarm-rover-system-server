@@ -69,7 +69,7 @@ export const createOrder = async (itemId: string, userId: string) => {
       itemIds: [itemId],
       user: {
         connect: {id: userId}
-      },
+      }
     }
   })
 }

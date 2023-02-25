@@ -3,6 +3,7 @@ import cors from 'cors'
 import errorHandler from '../middleware/error-handler'
 import AuthRouter from '../auth/auth.router'
 import HotelRouter from '../hotel/hotel.router'
+import RoverRouter from '../rover/rover.router'
 
 const createPatrioServer = (): Express => {
   const app = express()
@@ -13,6 +14,7 @@ const createPatrioServer = (): Express => {
 
   app.use('/auth', AuthRouter)
   app.use('/hotel', HotelRouter)
+  app.use('/rover', RoverRouter)
   app.use(errorHandler)
 
   return app

@@ -22,16 +22,17 @@ model Order {
   userId  String   @unique @db.ObjectId
   items   Item[]   @relation(fields: [itemIds], references: [id])
   itemIds String[] @db.ObjectId
-  rover   Rover?   @relation(fields: [roverId], references: [id])
-  roverId String?  @db.ObjectId
+  rover   Rover[]  @relation(fields: [roverId], references: [id])
+  roverId String[] @db.ObjectId
 }
 
 model Hotel {
-  id        String @id @default(auto()) @map("_id") @db.ObjectId
-  hotelName String @unique
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  hotelName String  @unique
   password  String
   rooms     Room[]
   items     Item[]
+  rovers    Rover[]
 }
 
 model Item {
@@ -55,7 +56,11 @@ model Room {
 }
 
 model Rover {
-  id     String  @id @default(auto()) @map("_id") @db.ObjectId
-  active Boolean
-  orders Order[]
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  active   Boolean  @default(false)
+  order    Order[]  @relation(fields: [orderIds], references: [id])
+  orderIds String[] @db.ObjectId
+  exchange Boolean  @default(false)
+  hotel    Hotel    @relation(fields: [hotelId], references: [id])
+  hotelId  String   @db.ObjectId
 }
