@@ -5,7 +5,8 @@ export class PatrioError extends Error {
     INVALID_DATA: 400,
     USER_ALREADY_EXISTS: 409,
     SERVER_ERROR: 500,
-    INVALID_CREDENTIALS: 401
+    INVALID_CREDENTIALS: 401,
+    UNAUTHORIZED: 401
   }
 
   constructor (type: keyof typeof PatrioError.typeToCode) {
