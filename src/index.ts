@@ -12,6 +12,26 @@ const io = new Server(server, {
 
 io.on('connection', socket => {
   console.log(socket.id)
+  socket.on('add-rover', (data: {hotel: string, rover: string}) => {
+    socket.join(data.rover)
+    socket.join(data.hotel)
+  })
+
+  socket.on('waiting-exchange', (data: {hotel: string}) => {
+    io.to(data.hotel).emit('waiting')
+  })
+
+  socket.on('start-exchange', (data: {hotel: string}) => {
+    io.to(data.hotel).emit('exchanging')
+  })
+
+  socket.on('exchange-done', (data: { hotel: string, room: string }) => {
+    io.to(data.hotel).emit('exchanged', data.room)
+  })
+
+  socket.on('start-delivery', (data: {rover: string}) => {
+    io.to(data.rover).emit('start')
+  })
 })
 
 const PORT = process.env.PORT === undefined ? 4000 : process.env.PORT

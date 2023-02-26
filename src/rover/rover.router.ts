@@ -9,6 +9,6 @@ const router = Router()
 router.post('/create-rover', authorization, typeValidate(CreateRoverSchema), RoverController.createRover)
 router.patch('/add-order', typeValidate(AddOrderSchema), RoverController.addOrder)
 router.patch('/delivered-order', typeValidate(DeliveredOrderSchema), RoverController.deliveredOrder)
-router.get('/get-rover-path', typeValidate(GetRoverPathSchema), RoverController.getRoverPath)
+router.post('/get-rover-path', typeValidate(GetRoverPathSchema), RoverController.getRoverPath)
 
 export default router
