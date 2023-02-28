@@ -18,19 +18,19 @@ io.on('connection', socket => {
   })
 
   socket.on('waiting-exchange', (data: {hotel: string}) => {
-    io.to(data.hotel).emit('waiting')
+    socket.to(data.hotel).emit('waiting')
   })
 
   socket.on('start-exchange', (data: {hotel: string}) => {
-    io.to(data.hotel).emit('exchanging')
+    socket.to(data.hotel).emit('exchanging')
   })
 
   socket.on('exchange-done', (data: { hotel: string, room: string }) => {
-    io.to(data.hotel).emit('exchanged', data.room)
+    socket.to(data.hotel).emit('exchanged', data.room)
   })
 
   socket.on('start-delivery', (data: {rover: string}) => {
-    io.to(data.rover).emit('start')
+    socket.to(data.rover).emit('start')
   })
 })
 
