@@ -10,6 +10,8 @@ const io = new Server(server, {
   }
 })
 
+// Some change
+
 io.on('connection', socket => {
   console.log(socket.id)
   socket.on('add-rover', (data: {hotel: string, rover: string}) => {
