@@ -57,7 +57,7 @@ export const bookRoom = async (
 }
 
 export const getOrders = async (): Promise<any> => {
-  return await prisma.order.findFirst({
+  return await prisma.order.findMany({
     include: {
       items: true
     }

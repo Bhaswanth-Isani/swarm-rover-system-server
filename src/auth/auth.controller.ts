@@ -5,6 +5,7 @@ import {
 } from './auth.schema'
 import { PatrioError } from '../libs/patrio-error'
 import expressAsyncHandler from 'express-async-handler'
+import prisma from '../libs/prisma'
 
 /// Creates a user by taking CreateAccountSchemaType as an input through request and responds with {success: true, user: User, token: string}
 export const createAccount: RequestHandler = expressAsyncHandler(async (
@@ -24,6 +25,11 @@ export const createAccount: RequestHandler = expressAsyncHandler(async (
   }
 
   const newUser = await AuthService.createUser(userData)
+  await prisma.order.create({
+    data: {
+      userId: newUser.id
+    }
+  })
   newUser.password = ''
 
   const token = AuthService.generateJWT(newUser.id)
