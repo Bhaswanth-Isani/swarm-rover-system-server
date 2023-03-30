@@ -7,7 +7,7 @@ import * as HotelController from './hotel.controller'
 const router = Router()
 
 router.post('/create-item', authorization, typeValidate(CreateItemSchema), HotelController.createItem)
-router.get('/get-items', authorization, typeValidate(GetItemSchema), HotelController.getItems)
+router.get('/get-items', typeValidate(GetItemSchema), HotelController.getItems)
 router.post('/create-room', authorization, typeValidate(CreateRoomSchema), HotelController.createRoom)
 router.patch('/book-room', authorization, typeValidate(BookRoomSchema), HotelController.bookRoom)
 
