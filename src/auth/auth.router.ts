@@ -12,5 +12,6 @@ router.post('/login', typeValidate(LoginSchema), AuthController.login)
 router.post('/login-hotel', typeValidate(LoginHotelSchema), AuthController.loginHotel)
 router.post('/create-order', authorization, typeValidate(OrderSchema), AuthController.createOrder)
 router.patch('/update-order', authorization, typeValidate(OrderSchema), AuthController.updateOrder)
+router.get('/orders', authorization, AuthController.getOrders)
 
 export default router

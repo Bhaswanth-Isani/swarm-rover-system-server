@@ -4,7 +4,7 @@ export const createItem = async (
   itemName: string,
   itemPrice: number,
   hotelId: string
-) => {
+): Promise<any> => {
   return await prisma.item.create({
     data: {
       itemName,
@@ -16,7 +16,7 @@ export const createItem = async (
   })
 }
 
-export const getItems = async (hotelId: string) => {
+export const getItems = async (hotelId: string): Promise<any> => {
   return await prisma.item.findMany({
     where: {
       hotelId
@@ -28,7 +28,7 @@ export const createRoom = async (
   roomNumber: number,
   path: string[],
   hotelId: string
-) => {
+): Promise<any> => {
   return await prisma.room.create({
     data: {
       roomNumber,
@@ -42,15 +42,15 @@ export const createRoom = async (
 
 export const bookRoom = async (
   roomId: string,
-  userId: string,
-) => {
+  userId: string
+): Promise<any> => {
   return await prisma.room.update({
-    where:{
+    where: {
       id: roomId
     },
     data: {
       user: {
-        connect: {id: userId}
+        connect: { id: userId }
       }
     }
   })

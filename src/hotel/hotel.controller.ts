@@ -1,6 +1,6 @@
-import { RequestHandler, Request, Response, NextFunction } from 'express'
+import { type RequestHandler, type Request, type Response, type NextFunction } from 'express'
 import expressAsyncHandler from 'express-async-handler'
-import { BookRoomSchemaType, CreateItemSchemaType, CreateRoomSchemaType, GetItemSchemaType } from './hotel.schema'
+import { type BookRoomSchemaType, type CreateItemSchemaType, type CreateRoomSchemaType, type GetItemSchemaType } from './hotel.schema'
 import * as HotelService from './hotel.service'
 
 export const createItem: RequestHandler = expressAsyncHandler(async (
@@ -8,7 +8,7 @@ export const createItem: RequestHandler = expressAsyncHandler(async (
   res: Response,
   _next: NextFunction
 ): Promise<void> => {
-  const {itemName, itemPrice} = req.body
+  const { itemName, itemPrice } = req.body
   const hotelId = req.id
 
   const item = await HotelService.createItem(itemName, itemPrice, hotelId)
@@ -39,7 +39,7 @@ export const createRoom: RequestHandler = expressAsyncHandler(async (
   res: Response,
   _next: NextFunction
 ) => {
-  const {roomNumber, path} = req.body
+  const { roomNumber, path } = req.body
   const hotelId = req.id
 
   const room = await HotelService.createRoom(roomNumber, path, hotelId)
@@ -55,7 +55,7 @@ export const bookRoom: RequestHandler = expressAsyncHandler(async (
   res: Response,
   _next: NextFunction
 ) => {
-  const {roomId} = req.body
+  const { roomId } = req.body
   const userId = req.id
 
   const room = await HotelService.bookRoom(roomId, userId)

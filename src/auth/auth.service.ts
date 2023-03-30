@@ -39,8 +39,8 @@ export const createHotel = async (hotel: Prisma.HotelCreateInput): Promise<Hotel
   })
 }
 
-export const validateJWT = (token: string) => {
-  if(!process.env.JWT_SECRET) {
+export const validateJWT = (token: string): string => {
+  if (process.env.JWT_SECRET === undefined) {
     throw new Error('JWT_SECRET is undefined')
   }
 
@@ -63,18 +63,27 @@ export const comparePasswords = (input: string, encrypted: string): boolean => {
   return bcrypt.compareSync(input, encrypted)
 }
 
-export const createOrder = async (itemId: string, userId: string) => {
+export const getOrders = async (userId: string): Promise<any> => {
+  return await prisma.order.findUnique({
+    where: { userId },
+    include: {
+      items: true
+    }
+  })
+}
+
+export const createOrder = async (itemId: string, userId: string): Promise<any> => {
   return await prisma.order.create({
     data: {
       itemIds: [itemId],
       user: {
-        connect: {id: userId}
+        connect: { id: userId }
       }
     }
   })
 }
 
-export const updateOrder = async (itemId: string, userId: string) => {
+export const updateOrder = async (itemId: string, userId: string): Promise<any> => {
   return await prisma.order.update({
     where: {
       userId

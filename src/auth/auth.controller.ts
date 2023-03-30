@@ -1,7 +1,7 @@
 import { type NextFunction, type Request, type RequestHandler, type Response } from 'express'
 import * as AuthService from './auth.service'
 import {
-  CreateAccountSchemaType, CreateHotelSchemaType, LoginHotelSchemaType, LoginSchemaType, OrderSchemaType
+  type CreateAccountSchemaType, type CreateHotelSchemaType, type LoginHotelSchemaType, type LoginSchemaType, type OrderSchemaType
 } from './auth.schema'
 import { PatrioError } from '../libs/patrio-error'
 import expressAsyncHandler from 'express-async-handler'
@@ -132,7 +132,7 @@ export const createOrder = expressAsyncHandler(async (
   res: Response,
   _next: NextFunction
 ): Promise<void> => {
-  const {itemId} = req.body
+  const { itemId } = req.body
   const userId = req.id
 
   const order = await AuthService.createOrder(itemId, userId)
@@ -143,12 +143,23 @@ export const createOrder = expressAsyncHandler(async (
   })
 })
 
+export const getOrders = expressAsyncHandler(async (req: Request<unknown, unknown, unknown>, res: Response, _next: NextFunction): Promise<void> => {
+  const userID = req.id
+
+  const orders = await AuthService.getOrders(userID)
+
+  res.status(200).json({
+    success: true,
+    orders
+  })
+})
+
 export const updateOrder = expressAsyncHandler(async (
   req: Request<unknown, unknown, OrderSchemaType>,
   res: Response,
   _next: NextFunction
 ): Promise<void> => {
-  const {itemId} = req.body
+  const { itemId } = req.body
   const userId = req.id
 
   const order = await AuthService.updateOrder(itemId, userId)

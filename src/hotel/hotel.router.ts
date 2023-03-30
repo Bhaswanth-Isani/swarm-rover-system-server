@@ -4,7 +4,7 @@ import typeValidate from '../middleware/type-validate'
 import { BookRoomSchema, CreateItemSchema, CreateRoomSchema, GetItemSchema } from './hotel.schema'
 import * as HotelController from './hotel.controller'
 
-const router  = Router()
+const router = Router()
 
 router.post('/create-item', authorization, typeValidate(CreateItemSchema), HotelController.createItem)
 router.get('/get-items', authorization, typeValidate(GetItemSchema), HotelController.getItems)

@@ -14,16 +14,16 @@ const io = new Server(server, {
 
 io.on('connection', socket => {
   console.log(socket.id)
-  socket.on('add-rover', (data: {hotel: string, rover: string}) => {
-    socket.join(data.rover)
-    socket.join(data.hotel)
+  socket.on('add-rover', async (data: { hotel: string, rover: string }) => {
+    await socket.join(data.rover)
+    await socket.join(data.hotel)
   })
 
-  socket.on('waiting-exchange', (data: {hotel: string}) => {
+  socket.on('waiting-exchange', (data: { hotel: string }) => {
     socket.to(data.hotel).emit('waiting')
   })
 
-  socket.on('start-exchange', (data: {hotel: string}) => {
+  socket.on('start-exchange', (data: { hotel: string }) => {
     socket.to(data.hotel).emit('exchanging')
   })
 
@@ -31,7 +31,7 @@ io.on('connection', socket => {
     socket.to(data.hotel).emit('exchanged', data.room)
   })
 
-  socket.on('start-delivery', (data: {rover: string}) => {
+  socket.on('start-delivery', (data: { rover: string }) => {
     socket.to(data.rover).emit('start')
   })
 })

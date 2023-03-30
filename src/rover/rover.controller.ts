@@ -1,10 +1,10 @@
 import expressAsyncHandler from 'express-async-handler'
-import { Request, Response, NextFunction } from 'express'
+import { type Request, type Response, type NextFunction } from 'express'
 import {
-  AddOrderSchemaType,
-  CreateRoverSchemaType,
-  DeliveredOrderSchemaType,
-  GetRoverPathSchemaType
+  type AddOrderSchemaType,
+  type CreateRoverSchemaType,
+  type DeliveredOrderSchemaType,
+  type GetRoverPathSchemaType
 } from './rover.schema'
 import * as RoverService from './rover.service'
 
@@ -28,7 +28,7 @@ export const addOrder = expressAsyncHandler(async (
   res: Response,
   _next: NextFunction
 ) => {
-  const {roverId, orderId, exchange} = req.body
+  const { roverId, orderId, exchange } = req.body
 
   const rover = await RoverService.addOrder(roverId, orderId, exchange ?? false)
 
@@ -43,7 +43,7 @@ export const deliveredOrder = expressAsyncHandler(async (
   res: Response,
   _next: NextFunction
 ) => {
-  const {roverId, orderId, exchange} = req.body
+  const { roverId, orderId, exchange } = req.body
 
   const rover = await RoverService.deliveredOrder(roverId, orderId, exchange ?? false)
 
@@ -58,7 +58,7 @@ export const getRoverPath = expressAsyncHandler(async (
   res: Response,
   _next: NextFunction
 ) => {
-  const {roverId} = req.body
+  const { roverId } = req.body
 
   const paths = await RoverService.getFullPaths(roverId)
   console.log(paths)
