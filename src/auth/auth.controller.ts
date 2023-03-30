@@ -146,11 +146,11 @@ export const createOrder = expressAsyncHandler(async (
 export const getOrders = expressAsyncHandler(async (req: Request<unknown, unknown, unknown>, res: Response, _next: NextFunction): Promise<void> => {
   const userID = req.id
 
-  const orders = await AuthService.getOrders(userID)
+  const order = await AuthService.getOrders(userID)
 
   res.status(200).json({
     success: true,
-    orders
+    order
   })
 })
 

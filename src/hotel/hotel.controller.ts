@@ -34,6 +34,15 @@ export const getItems: RequestHandler = expressAsyncHandler(async (
   })
 })
 
+export const getOrders = expressAsyncHandler(async (_req: Request<unknown, unknown, unknown>, res: Response, _next: NextFunction): Promise<void> => {
+  const order = await HotelService.getOrders()
+
+  res.status(200).json({
+    success: true,
+    order
+  })
+})
+
 export const createRoom: RequestHandler = expressAsyncHandler(async (
   req: Request<unknown, unknown, CreateRoomSchemaType>,
   res: Response,
