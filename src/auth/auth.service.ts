@@ -92,6 +92,9 @@ export const updateOrder = async (itemId: string, userId: string): Promise<any> 
       itemIds: {
         push: itemId
       }
+    },
+    include: {
+      items: true
     }
   })
 }
