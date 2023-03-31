@@ -149,6 +149,23 @@ export const createOrder = expressAsyncHandler(async (
   })
 })
 
+export const removeOrders = expressAsyncHandler(async (req: Request<unknown, unknown, unknown>, res: Response): Promise<void> => {
+  const userID = req.id
+
+  await prisma.order.update({
+    where: {
+      userId: userID
+    },
+    data: {
+      itemIds: []
+    }
+  })
+
+  res.status(200).json({
+    success: true
+  })
+})
+
 export const getOrders = expressAsyncHandler(async (req: Request<unknown, unknown, unknown>, res: Response, _next: NextFunction): Promise<void> => {
   const userID = req.id
 
